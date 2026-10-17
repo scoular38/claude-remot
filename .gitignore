@@ -1,0 +1,7 @@
+# Contient ton jeton et ton mot de passe e-mail : ne JAMAIS l'envoyer sur GitHub
+server/config.json
+# Données locales (statistiques, fichiers temporaires)
+server/.runtime/
+node_modules/
+.DS_Store
+Thumbs.db
