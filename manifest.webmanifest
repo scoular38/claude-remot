@@ -1,0 +1,14 @@
+{
+  "name": "Claude Remote",
+  "short_name": "Claude",
+  "description": "Claude Code sur ton ordinateur, depuis n'importe où.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#16140f",
+  "theme_color": "#16140f",
+  "lang": "fr",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
