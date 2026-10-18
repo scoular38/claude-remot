@@ -3,7 +3,7 @@
 // - Enveloppe (HTML, JS, CSS, icônes) : cache d'abord, version de cache à incrémenter à chaque livraison.
 // - Bibliothèques CDN épinglées (jsDelivr) : cache d'abord (versions immuables).
 
-const VERSION = 'panel-v3';
+const VERSION = 'panel-v4';
 const CACHE_ENVELOPPE = `${VERSION}-enveloppe`;
 const CACHE_CDN = `${VERSION}-cdn`;
 

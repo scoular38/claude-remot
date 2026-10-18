@@ -67,6 +67,24 @@ export function createProjectsTab() {
     } catch (e) { toast(e.message, 'error'); }
   }
 
+  /** Renvoie le travail gardé vers le dossier d'origine (avance rapide uniquement, côté serveur). */
+  async function renvoyer(p) {
+    const ok = await openDialog((dlg, close) => {
+      dlg.append(
+        h('h2', { class: 'dialog-title', text: `Renvoyer « ${p.name} » vers l’original ?` }),
+        h('p', { class: 'dialog-text', text: `La branche ${p.branch || ''} de ce projet sera recopiée dans :` }),
+        h('p', { class: 'dialog-text mono', text: p.origin }),
+        h('p', { class: 'dialog-text muted', text: 'Seulement si l’original n’a ni modifications en cours ni commits que ce projet n’a pas : rien n’y est jamais écrasé.' }),
+        h('div', { class: 'dialog-actions' }, button('Annuler', { onClick: () => close(false) }),
+          button('Renvoyer', { kind: 'primary', icon: 'upload', onClick: () => close(true) })));
+    }, { label: `Renvoyer ${p.name} vers l’original` }).then(Boolean);
+    if (!ok) return;
+    try {
+      const r = await api(`/api/projects/${encodeURIComponent(p.id)}/send-to-origin`, { method: 'POST', body: {} });
+      toast(r.commits ? `${r.commits} commit${r.commits > 1 ? 's' : ''} renvoyé${r.commits > 1 ? 's' : ''} vers l’original.` : 'L’original est déjà à jour.', 'success');
+    } catch (e) { toast(e.message, 'error'); }
+  }
+
   function rendre() {
     clear(liste);
     form.querySelectorAll('input,select,button').forEach((x) => { x.disabled = state.pc !== 'online'; });
@@ -80,6 +98,9 @@ export function createProjectsTab() {
           h('div', {}, h('strong', { text: p.name }), h('small', { class: 'muted mono', text: p.path || '' })),
           h('div', { class: 'project-buttons' },
             actif ? chip('Projet actif', 'info', 'check') : button('Choisir', { small: true, onClick: (e) => busy(e.currentTarget, () => choisir(p)) }),
+            p.origin ? button('Renvoyer vers l’original', { small: true, icon: 'upload', title: p.origin,
+              disabled: /^claude\//.test(p.branch || '') || p.dirty,
+              onClick: (e) => busy(e.currentTarget, () => renvoyer(p)) }) : null,
             button(`Supprimer ${p.name}`, { icon: 'trash', iconOnly: true, small: true, kind: 'danger-ghost', title: 'Supprimer le projet',
               onClick: (e) => busy(e.currentTarget, () => supprimer(p)) }))),
         h('div', { class: 'project-meta' },
