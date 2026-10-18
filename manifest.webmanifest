@@ -1,14 +1,25 @@
 {
-  "name": "Claude Remote",
-  "short_name": "Claude",
-  "description": "Claude Code sur ton ordinateur, depuis n'importe où.",
-  "start_url": "./",
+  "name": "Panel multi-agents",
+  "short_name": "Panel",
+  "description": "Agents Code, Secrétaire et Prof de maths, depuis ton téléphone.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "./#accueil",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#16140f",
-  "theme_color": "#16140f",
-  "lang": "fr",
+  "orientation": "any",
+  "background_color": "#f5f6fa",
+  "theme_color": "#f5f6fa",
+  "categories": ["productivity", "developer"],
   "icons": [
-    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Code", "url": "./#code", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Secrétaire", "url": "./#secretaire", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Prof de maths", "url": "./#prof", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
   ]
 }
